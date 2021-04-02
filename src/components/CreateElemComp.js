@@ -1,3 +1,5 @@
 import React from "react";
 
-export const CreateElemComp = React.createElement("h1", {}, "Hello World!");
+ const Template = React.createElement("h1", {}, "Hello from create element compoment");
+
+ export const CreateElemComp = () => Template

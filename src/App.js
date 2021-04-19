@@ -1,16 +1,15 @@
-import FunctionComp from './components/FunctionComp'
-import ClassComp from './components/ClassComp'
-import PureComp from './components/PureComp'
-import {CreateElemComp} from'./components/CreateElemComp'
+import React from "react";
+import FirstSection from './components/FirstSection';
+import MainSection from './components/MainSection'
+import Footer from './components/Footer'
+import './index.css'
 
 function App() {
   return (
     <div className="App">
-      Hello World
-      <CreateElemComp/>
-      <ClassComp/>
-      <PureComp/>
-      <FunctionComp/> 
+      <FirstSection/> 
+      <MainSection/>
+      <Footer/>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import MainSectionResult from "./MainSectionResult";
 import ErrorBoundary from "./ErrorBoundary";
 // import WithLoading from "./WithLoading";
 
-// const ListWithLoading = WithLoading(MainSectionResult)
+//const ListWithLoading = WithLoading(MainSectionResult)
 const StyledFilterResult = Styled.h2`
 color: #fff;
 margin: 20px 0;
@@ -70,9 +70,9 @@ const MainSection = () => {
         <MainSectionHeader />
         <ErrorBoundary>
           <StyledFilterResult>39 movies found</StyledFilterResult>
-          <StyledFilterItems>
+          <StyledFilterItems loading>
             {movies.map((movie) => (
-              <MainSectionResult 
+              <MainSectionResult loading 
                 title={movie.title}
                 genre={movie.genre}
                 year={movie.year}

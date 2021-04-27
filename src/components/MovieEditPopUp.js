@@ -44,6 +44,9 @@ margin: 0 15px 0 0;
 color: #f65261;
 width: 150px;
 cursor: pointer;
+&::placeholder {
+  color: #f65261;
+}
 `;
 const StyledSubmit = Styled.input`
 border-radius: 6px;
@@ -70,35 +73,33 @@ const MovieEditPopUp = (props) => {
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>TITLE</Styledlabel>
-          <StyledInput type="text" name="title" />
+          <StyledInput type="text" name="title" placeholder="Moana"/>
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>RELEASE DATE</Styledlabel>
-          <StyledInput type="date" name="date" />
+          <StyledInput type="date" name="date" placeholder="31/03/2018"/>
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>MOVIE URL</Styledlabel>
-          <StyledInput type="URL" placeholder="MOVIE URL gere" name="url" />
+          <StyledInput type="URL" placeholder="www.moana.com" name="url" />
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>GENRE</Styledlabel>
           <StyledSelect>
-            <option>Select genre</option>
-            <option value="Action & Adventure">Action & Adventure</option>
-            <option value="Oscar winning Movie">Oscar winning Movie</option>
+            <option selected>Comedy</option>
           </StyledSelect>
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>OVERVIEW</Styledlabel>
           <StyledInput
             type="text"
-            placeholder="OVERVIEW here"
+            placeholder="Overview text goes here"
             name="overview"
           />
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>RUNTIME</Styledlabel>
-          <StyledInput type="text" placeholder="RUNTIME here" name="runtime" />
+          <StyledInput type="text" placeholder="Runtime text goes here" name="runtime" />
         </StyledInputBlock>
         <StyledButtonBlock>
           <StyledReset type="reset" value="RESET" />

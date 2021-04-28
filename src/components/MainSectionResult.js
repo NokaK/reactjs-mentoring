@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Styled from "styled-components";
 import propTypes from "prop-types";
-import MovieEditPopUp from './MovieEditPopUp'
-import DeletePopUp from './DeletePopUp'
-
+import MovieEditPopUp from "./MovieEditPopUp";
+import DeletePopUp from "./DeletePopUp";
+import { MovieContext } from "../context/MovieDetailsContext";
 const StyledFilterItem = Styled.div`
 margin: 50px 50px 0 0;
 width: calc(100% / 3 - 34px);
@@ -106,7 +106,6 @@ width: 100%;
 }
 `;
 
-
 const StyledPopup = Styled.div`
  position: fixed;
  height: 100%;
@@ -147,105 +146,110 @@ cursor: pointer;
 }
 `;
 
-class MainSectionResult extends React.Component {
-  state = {
-    move: false,
-    click: false,
-    editModal: false,
-    deleteModal: false,
-  };
-
-  onMouseEnter = (event) => {
+const MainSectionResult = (props) => {
+  const [details, SetDetails] = useContext(MovieContext);
+  const [move, setMove] = useState(false);
+  const [click, setClick] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const onMouseEnter = (event) => {
     event.preventDefault();
-    this.setState({ move: true });
+    setMove(true);
   };
 
-  onMouseLeave = (event) => {
+  const onMouseLeave = (event) => {
     event.preventDefault();
-    this.setState({ move: false });
+    setMove(false);
   };
 
-  handleOpenModal = (e) => {
+  const handleOpenModal = (e) => {
     e.preventDefault();
-    this.setState({ click: true });
+    setClick(true);
   };
-  handleCloseModal = (e) => {
+  const handleCloseModal = (e) => {
     e.preventDefault();
-    this.setState({ click: false });
-  };
-
-  handleOpenEditModal = (e) => {
-    e.preventDefault();
-    this.setState({ editModal: true });
+    setClick(false);
   };
 
-  handleOpendeleteModal = (e) => {
+  const handleOpenEditModal = (e) => {
     e.preventDefault();
-    this.setState({ deleteModal: true });
+    setEditModal(true);
   };
 
-  handleClosePopup = (e) => {
-    e.preventDefault();
-    this.setState({ editModal: false, deleteModal: false  });
+  const handleOpendeleteModal = (e) => {
+    setDeleteModal(true);
   };
-  render() {
-    
-    return (
-      <>
-        <StyledFilterItem
-          onMouseEnter={this.onMouseEnter}
-          onMouseLeave={this.onMouseLeave}
-        >
-          {this.state.move ? (
-            <StyledDots onClick={this.handleOpenModal}>
-              <StyledDot></StyledDot>
-              <StyledDot></StyledDot>
-              <StyledDot></StyledDot>
-            </StyledDots>
-          ) : null}
-          {this.state.click ? (
-            <StyledDropDown>
-              <StyledCloseButton onClick={this.handleCloseModal} />
-              <div>
-                <StyledDropdownButton onClick={this.handleOpenEditModal}>edit</StyledDropdownButton>
-                <StyledDropdownButton onClick={this.handleOpendeleteModal}>delete</StyledDropdownButton>
-              </div>
-            </StyledDropDown>
-          ) : null}
-            {this.state.editModal ? (
-              <>
-                <StyledPopup>
-                  <StyledPopupContent>
-                   <MovieEditPopUp  id={this.props.id}/>
-                    <StyledPopUpCloseButton onClick={this.handleClosePopup} />
-                  </StyledPopupContent>
-                </StyledPopup>
-              </>
-            ) : null}
-            {this.state.deleteModal ? (
-              <>
-                <StyledPopup>
-                  <StyledPopupContent>
-                   <DeletePopUp/>
-                    <StyledPopUpCloseButton onClick={this.handleClosePopup} />
-                  </StyledPopupContent>
-                </StyledPopup>
-              </>
-            ) : null}
-           
-          <StyledFilmImage src={this.props.src} alt={this.props.title} />
-          <StyledFilmInfo>
+
+  const handleClosePopup = (e) => {
+    e.preventDefault();
+    setEditModal(false);
+    setDeleteModal(false);
+  };
+  const handleMovieDetails = (e) => {
+    e.preventDefault();
+    SetDetails(true);
+  };
+
+  return (
+    <>
+      <StyledFilterItem
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onClick={handleMovieDetails}
+      >
+        {move ? (
+          <StyledDots onClick={handleOpenModal}>
+            <StyledDot></StyledDot>
+            <StyledDot></StyledDot>
+            <StyledDot></StyledDot>
+          </StyledDots>
+        ) : null}
+        {click ? (
+          <StyledDropDown>
+            <StyledCloseButton onClick={handleCloseModal} />
             <div>
-              <StyledFilmName>{this.props.title}</StyledFilmName>
-              <StyledGenre>{this.props.genre}</StyledGenre>
+              <StyledDropdownButton onClick={handleOpenEditModal}>
+                edit
+              </StyledDropdownButton>
+              <StyledDropdownButton onClick={handleOpendeleteModal}>
+                delete
+              </StyledDropdownButton>
             </div>
-            <StyledYear>{this.props.year}</StyledYear>
-          </StyledFilmInfo>
-        </StyledFilterItem>
-      </>
-    );
-  }
-}
+          </StyledDropDown>
+        ) : null}
+        {editModal ? (
+          <>
+            <StyledPopup>
+              <StyledPopupContent>
+                <MovieEditPopUp id={props.id} />
+                <StyledPopUpCloseButton onClick={handleClosePopup} />
+              </StyledPopupContent>
+            </StyledPopup>
+          </>
+        ) : null}
+        {deleteModal ? (
+          <>
+            <StyledPopup>
+              <StyledPopupContent>
+                <DeletePopUp />
+                <StyledPopUpCloseButton onClick={handleClosePopup} />
+              </StyledPopupContent>
+            </StyledPopup>
+          </>
+        ) : null}
+
+        <StyledFilmImage src={props.src} alt={props.title} />
+        <StyledFilmInfo>
+          <div>
+            <StyledFilmName>{props.title}</StyledFilmName>
+            <StyledGenre>{props.genre}</StyledGenre>
+          </div>
+          <StyledYear>{props.year}</StyledYear>
+        </StyledFilmInfo>
+      </StyledFilterItem>
+    </>
+  );
+};
 
 MainSectionResult.propTypes = {
   title: propTypes.string.isRequired,

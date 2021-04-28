@@ -20,3 +20,7 @@ code {
 ::-webkit-scrollbar-track {
   background: transparent; 
 }
+
+*{
+  box-sizing: border-box;
+}

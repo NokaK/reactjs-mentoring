@@ -29,11 +29,11 @@ font-size: 16px;
 padding: 10px;
 color: #fff;
 `;
-const StyledButtonBlock =  Styled.div`
+const StyledButtonBlock = Styled.div`
 display: flex;
 margin: 30px 0 0;
 justify-content: flex-end;
-`
+`;
 const StyledReset = Styled.input`
 border-radius: 6px;
 background-color: transparent;
@@ -44,7 +44,7 @@ margin: 0 15px 0 0;
 color: #f65261;
 width: 150px;
 cursor: pointer;
-`
+`;
 const StyledSubmit = Styled.input`
 border-radius: 6px;
 background-color: #f65261;
@@ -54,13 +54,11 @@ padding: 15px 10px;
 color:#fff;
 width: 150px;
 cursor: pointer;
-`
+`;
 
 const MoviePopUp = () => {
-
   return (
     <>
-   
       <h1>addmovie</h1>
       <form>
         <StyledInputBlock>
@@ -93,15 +91,11 @@ const MoviePopUp = () => {
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>RUNTIME</Styledlabel>
-          <StyledInput
-            type="text"
-            placeholder="RUNTIME here"
-            name="runtime"
-          />
+          <StyledInput type="text" placeholder="RUNTIME here" name="runtime" />
         </StyledInputBlock>
         <StyledButtonBlock>
-          <StyledReset type="reset" value='RESET'/>
-          <StyledSubmit type="submit" value='SUBMIT'/>
+          <StyledReset type="reset" value="RESET" />
+          <StyledSubmit type="submit" value="SUBMIT" />
         </StyledButtonBlock>
       </form>
     </>

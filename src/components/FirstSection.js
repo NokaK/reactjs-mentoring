@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import FirstSectionSearch from "./FirstSectionSearch";
 import Styled from "styled-components";
 import bg from "../image/background.jpg";
-import MoviePopUp from "./MoviePopUp";
+
+import GlobalPopUp from "./GlobalPopUp";
 
 const StyledHeader = Styled.header`
   display: flex;
@@ -84,45 +85,34 @@ cursor: pointer;
 }
 `;
 
-class FirstSection extends React.Component {
-  state = {
-    popUp: false,
-  };
-  handleOpenPopup = (e) => {
+const FirstSection = () => {
+  const [moveModal, setMoveModal] = useState(false);
+
+  const handleOpenPopup = (e) => {
     e.preventDefault();
-    this.setState({ popUp: true });
+    setMoveModal(true);
   };
-  handleClosePopup = (e) => {
+  const handleClosePopup = (e) => {
     e.preventDefault();
-    this.setState({ popUp: false });
+    setMoveModal(false);
   };
-  render() {
-    return (
-      <>
-        <StyledBackground>
-          <StyledImage src={bg} alt="background" />
-          <StyledOpacityBlock>
-            <StyledHeader>
-              <StyledLogo>NetFlixroulette</StyledLogo>
-              <StyledButton onClick={this.handleOpenPopup}>
-                ADD MOVIE
-              </StyledButton>
-            </StyledHeader>
-            {this.state.popUp ? (
-              <>
-                <StyledPopup>
-                  <StyledPopupContent>
-                   <MoviePopUp/>
-                    <StyledCloseButton onClick={this.handleClosePopup} />
-                  </StyledPopupContent>
-                </StyledPopup>
-              </>
-            ) : null}
-            <FirstSectionSearch />
-          </StyledOpacityBlock>
-        </StyledBackground>
-      </>
-    );
-  }
-}
+
+  return (
+    <>
+      <StyledBackground>
+        <StyledImage src={bg} alt="background" />
+        <StyledOpacityBlock>
+          <StyledHeader>
+            <StyledLogo>NetFlixroulette</StyledLogo>
+            <StyledButton onClick={handleOpenPopup}>ADD MOVIE</StyledButton>
+          </StyledHeader>
+          {moveModal ? (
+            <GlobalPopUp moveModal={moveModal} handleClosePopup={handleClosePopup} />
+          ) : null}
+          <FirstSectionSearch />
+        </StyledOpacityBlock>
+      </StyledBackground>
+    </>
+  );
+};
 export default FirstSection;

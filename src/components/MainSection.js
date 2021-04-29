@@ -23,7 +23,6 @@ padding: 20px 50px;
 
 const MainSection = () => {
   const [movies] = useContext(InfoContext);
-
   return (
     <>
       <StyledBody>

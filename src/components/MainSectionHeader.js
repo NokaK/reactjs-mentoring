@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Styled from "styled-components";
 
 const StyledResult = Styled.div`
@@ -25,18 +25,32 @@ color: #fff;
 font-size: 20px;
 margin: 0 10px 0 0;
 `;
+const StyledSpan = Styled.span`
+margin: 0 15px 0 0;
+color: #555;
+`
+const StyledDate = Styled.div`
+`
 const MainSectionHeader = () => {
+  const [filterList] = useState([
+    "ALL",
+    "DOCUMENTARY",
+    "COMEDY",
+    "HORROR",
+    "CRIME",
+  ]);
   return (
     <>
       <StyledResult>
         <StyledFilter>
-          <StyledFilterList>ALL</StyledFilterList>
-          <StyledFilterList>DOCUMENTARY</StyledFilterList>
-          <StyledFilterList>COMEDY</StyledFilterList>
-          <StyledFilterList>HORROR</StyledFilterList>
-          <StyledFilterList>CRIME</StyledFilterList>
+          {filterList.map((item,key) => (
+            <StyledFilterList key={key}>{item}</StyledFilterList>
+          ))}
         </StyledFilter>
-        <StyledSort>SORT BY: RELEASE DATE</StyledSort>
+        <StyledSort>
+          <StyledSpan>SORT BY</StyledSpan>
+          <StyledDate>RELEASE DATE</StyledDate>
+        </StyledSort>
       </StyledResult>
     </>
   );

@@ -58,7 +58,7 @@ color:#fff;
 width: 150px;
 cursor: pointer;
 `;
-const StyledId =  Styled.h5`
+const StyledId = Styled.h5`
 margin: 10px 0;
 `
 
@@ -86,7 +86,7 @@ const MovieEditPopUp = (props) => {
         <StyledInputBlock>
           <Styledlabel>GENRE</Styledlabel>
           <StyledSelect>
-            <option selected>Comedy</option>
+            <option>Comedy</option>
           </StyledSelect>
         </StyledInputBlock>
         <StyledInputBlock>

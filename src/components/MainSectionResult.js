@@ -1,18 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useCallback } from "react";
+import { MovieContext } from "../context/MovieDetailsContext";
+import { ChosenMovieContext } from "../context/MovieIdContext";
 import Styled from "styled-components";
 import propTypes from "prop-types";
-import MovieEditPopUp from "./MovieEditPopUp";
-import DeletePopUp from "./DeletePopUp";
-import { MovieContext } from "../context/MovieDetailsContext";
+import GlobalPopUp from "./GlobalPopUp";
+import DropDown from "./DropDown";
+
 const StyledFilterItem = Styled.div`
 margin: 50px 50px 0 0;
 width: calc(100% / 3 - 34px);
 position: relative;
 &:nth-child(3n){
     margin: 50px 0 0;
-}
-
-`;
+}`;
 const StyledFilmImage = Styled.img`
 width: 100%;
 height: 650px;
@@ -64,120 +64,48 @@ margin: 0 0 5px;
   marginb: 0;
 }
 `;
-const StyledDropDown = Styled.div`
-width: 200px;
-background: #232323;
-border-radius: 6px;
-width: 200px;
-position: absolute;
-top: 20px;
-right: 20px;   
-color: #fff; 
-padding: 10px;
-`;
-const StyledCloseButton = Styled.button`
-display: flex;
-justify-content: flex-end;
-width: 100%;
-background:none;
-border: none;
-cursor: pointer;
-position: relative;
-&:after{
-  content: 'X';
-  dispplay:block;
-  color: #fff;
-  font-size: 10px;
-}
-`;
-const StyledDropdownButton = Styled.button`
-background: transparent;
-background: none;
-display: block;
-color: #fff;
-border: none;
-font-size: 18px;
-text-align:center;
-cursor: pointer;
-padding: 10px 0;
-width: 100%;
-&:hover {
-  background-color: #f65261;
-}
-`;
-
-const StyledPopup = Styled.div`
- position: fixed;
- height: 100%;
- width: 100%;
- top: 0;
- left: 0;
- background-color: rgba(0,0,0,0.7);
- display: flex;
- justify-content: center;
- align-items: center;
- z-index: 10;
- padding:15px 0 0;
-`;
-const StyledPopupContent = Styled.div`
-color: #fff;
-background-color: #232323;
-max-width: 500px;
-width: 100%;
-max-height: 600px;
-overflow-y: auto;
-padding: 15px 30px;
-border-radius: 6px;
-position: relative;
-
-`;
-const StyledPopUpCloseButton = Styled.button`
-position:absolute;
-right: 20px;
-top: 20px;
-background:none;
-border: none;
-cursor: pointer;
-&:after{
-  content: 'X';
-  dispplay:block;
-  color: #fff;
-  font-size: 35px;
-}
-`;
 
 const MainSectionResult = (props) => {
   const [details, SetDetails] = useContext(MovieContext);
+  const [choosenMovie, setChoosenMovie] = useContext(ChosenMovieContext);
   const [move, setMove] = useState(false);
-  const [click, setClick] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-  const onMouseEnter = (event) => {
-    event.preventDefault();
+  const onMouseEnter = useCallback((e) => {
+    e.preventDefault();
     setMove(true);
-  };
+  }, [setMove]);
 
-  const onMouseLeave = (event) => {
-    event.preventDefault();
+  const onMouseLeave = useCallback((e) => {
+    e.preventDefault();
     setMove(false);
-  };
+  }, [setMove]);
+
+  const handleMovieDetails  = useCallback((e, key) => {
+      e.preventDefault();
+      SetDetails(true);
+      setChoosenMovie(key);
+    },[SetDetails,setChoosenMovie]);
 
   const handleOpenModal = (e) => {
     e.preventDefault();
-    setClick(true);
+    setDropDown(true);
   };
   const handleCloseModal = (e) => {
     e.preventDefault();
-    setClick(false);
+    setDropDown(false);
   };
 
   const handleOpenEditModal = (e) => {
     e.preventDefault();
     setEditModal(true);
+    setDropDown(false);
   };
 
   const handleOpendeleteModal = (e) => {
     setDeleteModal(true);
+    setDropDown(false);
   };
 
   const handleClosePopup = (e) => {
@@ -185,17 +113,15 @@ const MainSectionResult = (props) => {
     setEditModal(false);
     setDeleteModal(false);
   };
-  const handleMovieDetails = (e) => {
-    e.preventDefault();
-    SetDetails(true);
-  };
 
   return (
     <>
       <StyledFilterItem
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        onClick={handleMovieDetails}
+        onClick={(e) => {
+          handleMovieDetails(e, props.id);
+        }}
       >
         {move ? (
           <StyledDots onClick={handleOpenModal}>
@@ -204,40 +130,21 @@ const MainSectionResult = (props) => {
             <StyledDot></StyledDot>
           </StyledDots>
         ) : null}
-        {click ? (
-          <StyledDropDown>
-            <StyledCloseButton onClick={handleCloseModal} />
-            <div>
-              <StyledDropdownButton onClick={handleOpenEditModal}>
-                edit
-              </StyledDropdownButton>
-              <StyledDropdownButton onClick={handleOpendeleteModal}>
-                delete
-              </StyledDropdownButton>
-            </div>
-          </StyledDropDown>
+        {dropDown ? (
+          <DropDown
+            handleCloseModal={handleCloseModal}
+            handleOpenEditModal={handleOpenEditModal}
+            handleOpendeleteModal={handleOpendeleteModal}
+          />
         ) : null}
-        {editModal ? (
-          <>
-            <StyledPopup>
-              <StyledPopupContent>
-                <MovieEditPopUp id={props.id} />
-                <StyledPopUpCloseButton onClick={handleClosePopup} />
-              </StyledPopupContent>
-            </StyledPopup>
-          </>
+        {editModal || deleteModal ? (
+          <GlobalPopUp
+            id={props.id}
+            handleClosePopup={handleClosePopup}
+            editModal={editModal}
+            deleteModal={deleteModal}
+          />
         ) : null}
-        {deleteModal ? (
-          <>
-            <StyledPopup>
-              <StyledPopupContent>
-                <DeletePopUp />
-                <StyledPopUpCloseButton onClick={handleClosePopup} />
-              </StyledPopupContent>
-            </StyledPopup>
-          </>
-        ) : null}
-
         <StyledFilmImage src={props.src} alt={props.title} />
         <StyledFilmInfo>
           <div>

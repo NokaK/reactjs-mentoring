@@ -1,6 +1,7 @@
 import React from "react";
 import { MovieProvider } from "./context/MovieDetailsContext";
 import { MovieInfoProvider } from "./context/MovieInfoContext";
+import { ChosenMovieProvider } from "./context/MovieIdContext";
 import FirstSectionView from "./components/FirstSectionView";
 import MainSection from "./components/MainSection";
 import Footer from "./components/Footer";
@@ -12,8 +13,10 @@ function App() {
     <div className="App">
       <MovieInfoProvider>
         <MovieProvider>
-          <FirstSectionView />
-          <MainSection />
+          <ChosenMovieProvider>
+            <FirstSectionView />
+            <MainSection />
+          </ChosenMovieProvider>
         </MovieProvider>
       </MovieInfoProvider>
       <Footer />

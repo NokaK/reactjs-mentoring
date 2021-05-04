@@ -30,7 +30,7 @@ const MainSection = () => {
         <ErrorBoundary>
           <StyledFilterResult>39 movies found</StyledFilterResult>
           <StyledFilterItems>
-            {movies.map((movie, key) => (
+            { movies && movies.map((movie, key) => (
               <MainSectionResult
                 title={movie.title}
                 genre={movie.genre}

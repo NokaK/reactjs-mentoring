@@ -47,43 +47,6 @@ const StyledOpacityBlock = Styled.div`
   background-color: rgba(0,0,0,0.8);
 `;
 
-const StyledPopup = Styled.div`
- position: fixed;
- height: 100%;
- width: 100%;
- top: 0;
- left: 0;
- background-color: rgba(0,0,0,0.7);
- display: flex;
- justify-content: center;
- align-items: center;
- z-index: 10;
- padding:15px 0 0;
-`;
-const StyledPopupContent = Styled.div`
-color: #fff;
-background-color: #232323;
-max-width: 500px;
-width: 100%;
-padding: 15px 30px;
-border-radius: 6px;
-position: relative;
-
-`;
-const StyledCloseButton = Styled.button`
-position:absolute;
-right: 20px;
-top: 20px;
-background:none;
-border: none;
-cursor: pointer;
-&:after{
-  content: 'X';
-  dispplay:block;
-  color: #fff;
-  font-size: 35px;
-}
-`;
 
 const FirstSection = () => {
   const [moveModal, setMoveModal] = useState(false);

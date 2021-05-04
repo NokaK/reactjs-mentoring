@@ -48,7 +48,7 @@ const GlobalPopUp = (props) => {
     <>
       <StyledPopup>
         <StyledPopupContent>
-            {props.editModal ?<MovieEditPopUp id={props.id} /> : null }
+            {props.editModal ?<MovieEditPopUp movieInfo={props.movieInfo} /> : null }
             {props.deleteModal ?<DeletePopUp /> : null }
             {props.moveModal ? <MoviePopUp/> : null}
           <StyledPopUpCloseButton onClick={props.handleClosePopup}  />

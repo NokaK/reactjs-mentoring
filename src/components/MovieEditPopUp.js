@@ -69,15 +69,15 @@ const MovieEditPopUp = (props) => {
       <form>
       <StyledInputBlock>
           <Styledlabel>MOVIE ID</Styledlabel>
-          <StyledId>{props.id}</StyledId>
+          <StyledId>{props.movieInfo.id}</StyledId>
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>TITLE</Styledlabel>
-          <StyledInput type="text" name="title" placeholder="Moana"/>
+          <StyledInput type="text" name="title" placeholder={props.movieInfo.title}/>
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>RELEASE DATE</Styledlabel>
-          <StyledInput type="date" name="date" placeholder="31/03/2018"/>
+          <StyledInput type="text" name="date" placeholder={props.movieInfo.year}/>
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>MOVIE URL</Styledlabel>
@@ -86,7 +86,7 @@ const MovieEditPopUp = (props) => {
         <StyledInputBlock>
           <Styledlabel>GENRE</Styledlabel>
           <StyledSelect>
-            <option>Comedy</option>
+            <option>{props.movieInfo.genre}</option>
           </StyledSelect>
         </StyledInputBlock>
         <StyledInputBlock>

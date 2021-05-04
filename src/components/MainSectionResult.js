@@ -72,6 +72,7 @@ const MainSectionResult = (props) => {
   const [dropDown, setDropDown] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+
   const onMouseEnter = useCallback((e) => {
     e.preventDefault();
     setMove(true);
@@ -139,7 +140,7 @@ const MainSectionResult = (props) => {
         ) : null}
         {editModal || deleteModal ? (
           <GlobalPopUp
-            id={props.id}
+            movieInfo={props}
             handleClosePopup={handleClosePopup}
             editModal={editModal}
             deleteModal={deleteModal}

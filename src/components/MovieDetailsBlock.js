@@ -48,19 +48,19 @@ const MovieDetailsBlock = () => {
     <>
       {movies.map((item, key) =>
         key === choosenMovie ? (
-          <StyledBlock key={key}>
-            <StyledImage src={item.src} alt={item.title} />
+          <StyledBlock key={item.id}>
+            <StyledImage srcs={item.poster_path} alt={item.title} />
             <StyledInfoWrapper>
               <StyledTitleBlock>
                 <StyledTitle>{item.title}</StyledTitle>
-                <StyledRating>{item.raiting}</StyledRating>
+                <StyledRating>{item.vote_average}</StyledRating>
               </StyledTitleBlock>
               <h5>{item.genre}</h5>
               <StyledDate>
-                <span>{item.year}</span>
-                <span>{item.time}</span>
+                <span>{item.release_date}</span>
+                <span>{item.runtime}</span>
               </StyledDate>
-              <p>{item.desc}</p>
+              <p>{item.overview}</p>
             </StyledInfoWrapper>
           </StyledBlock>
         ) : null

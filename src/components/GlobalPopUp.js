@@ -44,11 +44,12 @@ cursor: pointer;
 }
 `;
 const GlobalPopUp = (props) => {
+  console.log(props)
   return (
     <>
       <StyledPopup>
         <StyledPopupContent>
-            {props.editModal ?<MovieEditPopUp movieInfo={props.movieInfo} /> : null }
+            {props.editModal ? <MovieEditPopUp movieInfo={props.movieInfo} /> : null }
             {props.deleteModal ?<DeletePopUp /> : null }
             {props.moveModal ? <MoviePopUp/> : null}
           <StyledPopUpCloseButton onClick={props.handleClosePopup}  />

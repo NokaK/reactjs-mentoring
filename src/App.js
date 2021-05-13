@@ -10,7 +10,6 @@ import { applyMiddleware, createStore, compose } from "redux";
 import thunk from "redux-thunk";
 import postsReducer from "./components/Reducer";
 import { Provider } from "react-redux";
-import Post from "./components/Post";
 // import composeWithDevTools from "redux-devtools-extension";
 
 const middleware = [thunk];
@@ -39,8 +38,6 @@ function App() {
           </MovieProvider>
         </MovieInfoProvider>
         <Footer />
-
-        {/* <Post /> */}
       </div>
     </Provider>
   );

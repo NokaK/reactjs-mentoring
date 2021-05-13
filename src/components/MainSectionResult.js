@@ -1,173 +1,237 @@
-// import React, { useContext, useState, useCallback } from "react";
-// import { MovieContext } from "../context/MovieDetailsContext";
-// import { ChosenMovieContext } from "../context/MovieIdContext";
-// import Styled from "styled-components";
-// import propTypes from "prop-types";
-// import GlobalPopUp from "./GlobalPopUp";
-// import DropDown from "./DropDown";
+import React, { useEffect, useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Styled from "styled-components";
+import GlobalPopUp from "./GlobalPopUp";
+import DropDown from "./DropDown";
 
-// const StyledFilterItem = Styled.div`
-// margin: 50px 50px 0 0;
-// width: calc(100% / 3 - 34px);
-// position: relative;
-// &:nth-child(3n){
-//     margin: 50px 0 0;
-// }`;
-// const StyledFilmImage = Styled.img`
-// width: 100%;
-// height: 650px;
-// object-fit:cover;
-// `;
-// const StyledFilmInfo = Styled.div`
-// display: flex;
-// justify-content: space-between;
-// align-items: flex-start;
-// color: #fff;
-// margin: 20px 0 0;
-// `;
-// const StyledFilmName = Styled.h3`
-// font-size: 24px;
-// margin: 0 0 15px;
-// `;
-// const StyledGenre = Styled.h4`
-// font-size: 20px;
-// margin: 0 0 15px;
-// `;
-// const StyledYear = Styled.span`
-// font-size: 16px;
-// border: 1px solid #fff;
-// border-radius: 5px;
-// padding: 5px 10px;
-// `;
-// const StyledDots = Styled.div`
-// color: #fff;
-// position: absolute;
-// top: 20px;
-// right: 20px;
-// border-radius: 50%;
-// background: #232323;
-// width: 45px;
-// height: 45px;
-// display: flex;
-// flex-direction:column;
-// justify-content: center;
-// align-items: center;
-// cursor:pointer;
-// `;
-// const StyledDot = Styled.span`
-// width: 5px;
-// height: 5px;
-// background: #fff;
-// border-radius: 50%;
-// margin: 0 0 5px;
-// &:last-child{
-//   marginb: 0;
-// }
-// `;
+const StyledFilterItem = Styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+const StyledImage = Styled.img`
+width: 100%;
+`;
+const StyledInfoWrapper = Styled.div`
+color: #fff;
+display: flex; 
+justify-content: space-between;
+align-items: flex-start;
+margin: 10px 0 0;
+`;
+const StyledTitle = Styled.h5`
+margin: 0 20px 0 0 ;
+font-size: 20px;
+`;
+const StyledRating = Styled.span`
+margin: 0 10px 0 0;
+`;
+const StyledDate = Styled.div`
+border: 1px solid #fff;
+padding: 5px 10px;
+border-radius: 5px;
 
-// const MainSectionResult = (props) => {
-//   const [details, SetDetails] = useContext(MovieContext);
-//   const [choosenMovie, setChoosenMovie] = useContext(ChosenMovieContext);
-//   const [move, setMove] = useState(false);
-//   const [dropDown, setDropDown] = useState(false);
-//   const [editModal, setEditModal] = useState(false);
-//   const [deleteModal, setDeleteModal] = useState(false);
+`;
+const StyledDots = Styled.div`
+color: #fff;
+position: absolute;
+top: 20px;
+right: 20px;
+border-radius: 50%;
+background: #232323;
+width: 45px;
+height: 45px;
+display: flex;
+flex-direction:column;
+justify-content: center;
+align-items: center;
+ cursor:pointer;
+`;
+const StyledDot = Styled.span`
+width: 5px;
+height: 5px;
+background: #fff;
+border-radius: 50%;
+margin: 0 0 5px;
+&:last-child{
+  margin: 0;
+}
+`;
+const StyledBlock = Styled.div`
+width: calc(100% / 3 - 50px);
+margin: 0 50px 50px 0;
+position: relative;
+&:nth-child(3n){
+  margin: 0 0 50px 0;
+}
+`;
+const MainSectionResult = (props) => {
+  const dispatch = useDispatch();
+  const [inputVal, setInputVal] = useState("");
+  // const [details, SetDetails] = useContext(MovieContext);
+  // const [choosenMovie, setChoosenMovie] = useContext(ChosenMovieContext);
+  const [move, setMove] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
-//   const onMouseEnter = useCallback((e) => {
-//     e.preventDefault();
-//     setMove(true);
-//   }, [setMove]);
+  const handleChange = (e) => {
+    e.preventDefault();
+    setInputVal(e.target.value);
+  };
 
-//   const onMouseLeave = useCallback((e) => {
-//     e.preventDefault();
-//     setMove(false);
-//   }, [setMove]);
+  const handleCreate = (e) => {
+    e.preventDefault(e);
+    dispatch({
+      type: "ADD_MOVIE",
+      payload: inputVal,
+    });
+    setInputVal("");
+  };
+  const handleDelete = (key) => {
+    const newItems = [...props.items];
+    newItems.splice(key, 1);
+    dispatch({
+      type: "DELETE_MOVIE",
+      payload: newItems,
+    });
+  };
 
-//   const handleMovieDetails  = useCallback((e, key) => {
-//       e.preventDefault();
-//       SetDetails(true);
-//       setChoosenMovie(key);
-//     },[SetDetails,setChoosenMovie]);
+  const handleTitleChange = (e, id) => {
+    const items = props.items.slice();
+    const itemElement = items.find((el) => id === el.id);
+    itemElement.title = e.target.value;
+    const itemIndex = items.indexOf(itemElement);
+    items[itemIndex] = itemElement;
+    dispatch({
+      type: "EDIT_MOVIE",
+      payload: items,
+    });
+  };
 
-//   const handleOpenModal = (e) => {
-//     e.preventDefault();
-//     setDropDown(true);
-//   };
-//   const handleCloseModal = (e) => {
-//     e.preventDefault();
-//     setDropDown(false);
-//   };
+  const onMouseEnter = useCallback(
+    (index) => {
+      if (props.item.id == index) {
+        setMove(true);
+      }
+    },
+    [setMove]
+  );
 
-//   const handleOpenEditModal = (e) => {
-//     e.preventDefault();
-//     setEditModal(true);
-//     setDropDown(false);
-//   };
+  const onMouseLeave = useCallback(
+    (index) => {
+      if (props.item.id == index) {
+        setMove(false);
+      }
+    },
+    [setMove]
+  );
 
-//   const handleOpendeleteModal = (e) => {
-//     setDeleteModal(true);
-//     setDropDown(false);
-//   };
+  // const handleMovieDetails = useCallback(
+  //   (e, key) => {
+  //     e.preventDefault();
+  //     SetDetails(true);
+  //     setChoosenMovie(key);
+  //   },
+  //   [SetDetails, setChoosenMovie]
+  // );
 
-//   const handleClosePopup = (e) => {
-//     e.preventDefault();
-//     setEditModal(false);
-//     setDeleteModal(false);
-//   };
+  const handleOpenModal = (e) => {
+    e.preventDefault();
+    setDropDown(true);
+  };
+  const handleCloseModal = (e) => {
+    e.preventDefault();
+    setDropDown(false);
+  };
 
-//   return (
-//     <>
-//       <StyledFilterItem
-//         onMouseEnter={onMouseEnter}
-//         onMouseLeave={onMouseLeave}
-//         onClick={(e) => {
-//           handleMovieDetails(e, props.id);
-//         }}
-//       >
-//         {move ? (
-//           <StyledDots onClick={handleOpenModal}>
-//             <StyledDot></StyledDot>
-//             <StyledDot></StyledDot>
-//             <StyledDot></StyledDot>
-//           </StyledDots>
-//         ) : null}
-//         {dropDown ? (
-//           <DropDown
-//             handleCloseModal={handleCloseModal}
-//             handleOpenEditModal={handleOpenEditModal}
-//             handleOpendeleteModal={handleOpendeleteModal}
-//           />
-//         ) : null}
-//         {editModal || deleteModal ? (
-//           <GlobalPopUp
-//             movieInfo={props}
-//             handleClosePopup={handleClosePopup}
-//             editModal={editModal}
-//             deleteModal={deleteModal}
-//           />
-//         ) : null}
-//         <StyledFilmImage src={props.src} alt={props.title} />
-//         <StyledFilmInfo>
-//           <div>
-//             <StyledFilmName>{props.title}</StyledFilmName>
-//             <StyledGenre>{props.genre}</StyledGenre>
-//           </div>
-//           <StyledYear>{props.year}</StyledYear>
-//         </StyledFilmInfo>
-//       </StyledFilterItem>
-//     </>
-//   );
-// };
+  const handleOpenEditModal = (e) => {
+    e.preventDefault();
+    setEditModal(true);
+    setDropDown(false);
+  };
 
-// MainSectionResult.propTypes = {
-//   title: propTypes.string.isRequired,
-//   genre: propTypes.string.isRequired,
-//   year: propTypes.number.isRequired,
-// };
-// MainSectionResult.defaultProps = {
-//   title: "Coolmovie",
-//   genre: "Cool Genre",
-//   year: 2021,
-// };
+  const handleOpendeleteModal = (e) => {
+    setDeleteModal(true);
+    setDropDown(false);
+  };
 
-// export default MainSectionResult;
+  const handleClosePopup = (e) => {
+    e.preventDefault();
+    setEditModal(false);
+    setDeleteModal(false);
+  };
+  const renderPosts = () => {
+    if (props.loading) {
+      return <h1>loading</h1>;
+    }
+    return (
+      <>
+        <StyledBlock
+          key={props.id}
+          onMouseEnter={() => onMouseEnter(props.item.id)}
+          onMouseLeave={() => onMouseLeave(props.item.id)}
+        >
+          {move ? (
+            <StyledDots onClick={handleOpenModal}>
+              <StyledDot></StyledDot>
+              <StyledDot></StyledDot>
+              <StyledDot></StyledDot>
+            </StyledDots>
+          ) : null}
+          {dropDown ? (
+            <DropDown
+              handleCloseModal={handleCloseModal}
+              handleOpenEditModal={handleOpenEditModal}
+              handleOpendeleteModal={handleOpendeleteModal}
+            />
+          ) : null}
+          {editModal || deleteModal ? (
+            <GlobalPopUp
+              movieInfo={props.item}
+              handleClosePopup={handleClosePopup}
+              editModal={editModal}
+              deleteModal={deleteModal}
+            />
+          ) : null}
+          <StyledImage src={props.item.poster_path} alt={props.item.title} />
+          <StyledInfoWrapper>
+            <div>
+              <StyledTitle>{props.item.title}</StyledTitle>
+              <div>
+                {props.item.genres.map((genre, key) => (
+                  <StyledRating key={key}>{genre}</StyledRating>
+                ))}
+              </div>
+            </div>
+            <StyledDate>{props.item.release_date}</StyledDate>
+          </StyledInfoWrapper>
+        </StyledBlock>
+      </>
+    );
+  };
+
+  return (
+    <>
+      {/* <div>
+        <input
+          type="text"
+          onChange={handleChange}
+          value={inputVal}
+          placeholder={inputVal}
+        />
+        <button onClick={handleCreate}>add</button>
+      </div> */}
+      {/* <StyledFilterItem
+
+      onClick={(e) => {
+        handleMovieDetails(e);
+      }}
+      >
+        
+      </StyledFilterItem> */}
+      {renderPosts()}
+    </>
+  );
+};
+export default MainSectionResult;

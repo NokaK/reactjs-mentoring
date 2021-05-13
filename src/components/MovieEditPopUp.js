@@ -63,6 +63,7 @@ margin: 10px 0;
 `
 
 const MovieEditPopUp = (props) => {
+  console.log(props)
   return (
     <>
       <h1>EDIT MOVIE</h1>
@@ -77,7 +78,7 @@ const MovieEditPopUp = (props) => {
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>RELEASE DATE</Styledlabel>
-          <StyledInput type="text" name="date" placeholder={props.movieInfo.year}/>
+          <StyledInput type="text" name="date" placeholder={props.movieInfo.release_date}/>
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>MOVIE URL</Styledlabel>
@@ -93,13 +94,13 @@ const MovieEditPopUp = (props) => {
           <Styledlabel>OVERVIEW</Styledlabel>
           <StyledInput
             type="text"
-            placeholder="Overview text goes here"
+            placeholder={props.movieInfo.overview}
             name="overview"
           />
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>RUNTIME</Styledlabel>
-          <StyledInput type="text" placeholder="Runtime text goes here" name="runtime" />
+          <StyledInput type="text" placeholder={props.movieInfo.runtime} name="runtime" />
         </StyledInputBlock>
         <StyledButtonBlock>
           <StyledReset type="reset" value="RESET" />

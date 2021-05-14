@@ -88,26 +88,7 @@ const MainSectionResult = (props) => {
     });
     setInputVal("");
   };
-  const handleDelete = (key) => {
-    const newItems = [...props.items];
-    newItems.splice(key, 1);
-    dispatch({
-      type: "DELETE_MOVIE",
-      payload: newItems,
-    });
-  };
-
-  const handleTitleChange = (e, id) => {
-    const items = props.items.slice();
-    const itemElement = items.find((el) => id === el.id);
-    itemElement.title = e.target.value;
-    const itemIndex = items.indexOf(itemElement);
-    items[itemIndex] = itemElement;
-    dispatch({
-      type: "EDIT_MOVIE",
-      payload: items,
-    });
-  };
+ 
 
   const onMouseEnter = useCallback(
     (index) => {

@@ -1,5 +1,6 @@
 import React from "react";
 import Styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
 const StyledInputBlock = Styled.div`
 display: flex;
@@ -60,34 +61,60 @@ cursor: pointer;
 `;
 const StyledId = Styled.h5`
 margin: 10px 0;
-`
+`;
 
 const MovieEditPopUp = (props) => {
-  console.log(props)
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+
+  const handleTitleChange = (e, id) => {
+    // const items = props.items.slice();
+    // const itemElement = items.find((el) => id === el.id);
+    // itemElement.title = e.target.value;
+    // const itemIndex = items.indexOf(itemElement);
+    // items[itemIndex] = itemElement;
+
+    // dispatch({
+    //   type: "EDIT_MOVIE",
+    //   payload: items,
+    // });
+  };
+  console.log(props.items);
   return (
     <>
       <h1>EDIT MOVIE</h1>
-      <form>
-      <StyledInputBlock>
+      <form onSubmit={props.updateMovieInfo}>
+        <StyledInputBlock>
           <Styledlabel>MOVIE ID</Styledlabel>
-          <StyledId>{props.movieInfo.id}</StyledId>
+          <StyledId value={props.movieInfo.id} />
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>TITLE</Styledlabel>
-          <StyledInput type="text" name="title" placeholder={props.movieInfo.title}/>
+          <StyledInput
+            type="text"
+            name="title"
+            onChange={(e) => handleTitleChange (e, props.movieInfo.id)}
+            value={props.movieInfo.title}
+          />
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>RELEASE DATE</Styledlabel>
-          <StyledInput type="text" name="date" placeholder={props.movieInfo.release_date}/>
+          <StyledInput
+            type="text"
+            name="date"
+            placeholder={props.movieInfo.release_date}
+          />
         </StyledInputBlock>
-        <StyledInputBlock>
+        {/* <StyledInputBlock>
           <Styledlabel>MOVIE URL</Styledlabel>
           <StyledInput type="URL" placeholder="www.moana.com" name="url" />
-        </StyledInputBlock>
+        </StyledInputBlock> */}
         <StyledInputBlock>
           <Styledlabel>GENRE</Styledlabel>
           <StyledSelect>
-            <option>{props.movieInfo.genre}</option>
+            {props.movieInfo.genres.map((genre, key) => (
+              <option key={key}>{genre}</option>
+            ))}
           </StyledSelect>
         </StyledInputBlock>
         <StyledInputBlock>
@@ -100,7 +127,11 @@ const MovieEditPopUp = (props) => {
         </StyledInputBlock>
         <StyledInputBlock>
           <Styledlabel>RUNTIME</Styledlabel>
-          <StyledInput type="text" placeholder={props.movieInfo.runtime} name="runtime" />
+          <StyledInput
+            type="text"
+            placeholder={props.movieInfo.runtime}
+            name="runtime"
+          />
         </StyledInputBlock>
         <StyledButtonBlock>
           <StyledReset type="reset" value="RESET" />

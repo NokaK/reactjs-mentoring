@@ -35,17 +35,19 @@ const postsReducer = (state = initState, action) => {
     case "DELETE_MOVIE":
       return {
         ...state,
-        items: action.payload,
+        items: state.items.filter((item) => item.id !== action.payload)
       };
     case "EDIT_MOVIE":
+      console.log(action.payload)
       return {
         ...state,
         items: action.payload,
       };
     case "SET_FILTER":
+      console.log(action.payload)
       return {
         ...state,
-        items: [{title: action.payload }],
+        items: [action.payload],
       };
     case "SET_SORTING":
       return {

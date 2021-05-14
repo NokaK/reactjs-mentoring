@@ -1,4 +1,4 @@
-import React, { useContext,useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Styled from "styled-components";
 import MainSectionHeader from "./MainSectionHeader";
 import MainSectionResult from "./MainSectionResult";
@@ -37,12 +37,11 @@ const MainSection = () => {
         <MainSectionHeader />
         <ErrorBoundary>
           <StyledFilterResult>39 movies found</StyledFilterResult>
-
-          <StyledFilterItems >
+          <StyledFilterItems>
             {state.items.map((item, index) => (
               <MainSectionResult item={item} key={index} />
             ))}
-          </StyledFilterItems >
+          </StyledFilterItems>
         </ErrorBoundary>
       </StyledBody>
     </>

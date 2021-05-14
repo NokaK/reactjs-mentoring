@@ -1,5 +1,6 @@
 import React from "react";
 import Styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
 const StyledInputBlock = Styled.div`
 display: flex;
@@ -29,7 +30,16 @@ width: 150px;
 cursor: pointer;
 `;
 
-const DeletePopUp = () => {
+const DeletePopUp = (props) => {
+  
+  const dispatch = useDispatch();
+  const handleDelete = (index) => {
+    dispatch({
+      type: "DELETE_MOVIE",
+      payload: index,
+    });
+  };
+
   return (
     <>
       <h1>DELETE MOVIE</h1>
@@ -40,7 +50,7 @@ const DeletePopUp = () => {
       </StyledInputBlock>
 
       <StyledButtonBlock>
-        <StyledSubmit type="submit" value="CONFIRM" />
+        <StyledSubmit type="submit" value="CONFIRM" onClick={() => handleDelete(props.movieInfo.id)}/>
       </StyledButtonBlock>
     </>
   );

@@ -4,7 +4,6 @@ import MoviePopUp from "./MoviePopUp";
 import MovieEditPopUp from "./MovieEditPopUp";
 import DeletePopUp from "./DeletePopUp";
 
-
 const StyledPopup = Styled.div`
  position: fixed;
  height: 100%;
@@ -44,15 +43,20 @@ cursor: pointer;
 }
 `;
 const GlobalPopUp = (props) => {
-  console.log(props)
   return (
     <>
       <StyledPopup>
         <StyledPopupContent>
-            {props.editModal ? <MovieEditPopUp movieInfo={props.movieInfo} /> : null }
-            {props.deleteModal ?<DeletePopUp /> : null }
-            {props.moveModal ? <MoviePopUp/> : null}
-          <StyledPopUpCloseButton onClick={props.handleClosePopup}  />
+          {props.editModal ? (
+            <MovieEditPopUp movieInfo={props.movieInfo} />
+          ) : null}
+          {props.deleteModal ? (
+            <DeletePopUp
+              movieInfo={props.movieInfo}
+            />
+          ) : null}
+          {props.moveModal ? <MoviePopUp /> : null}
+          <StyledPopUpCloseButton onClick={props.handleClosePopup} />
         </StyledPopupContent>
       </StyledPopup>
     </>

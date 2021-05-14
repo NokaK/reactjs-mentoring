@@ -57,13 +57,13 @@ border-radius: 6px;
 const MainSectionHeader = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  const [filterList] = useState([
-    "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-    "DOCUMENTARY",
-    "COMEDY",
-    "HORROR",
-    "CRIME",
-  ]);
+
+  const genres = state.items.map((el) => el.genres.map((item) => item));
+  const newGenre = genres.reduce((acc, cur) => {
+    return acc.concat(cur);
+  }, []);
+  const filteredGenres = newGenre.filter((v, i) => newGenre.indexOf(v) === i);
+
   const [sortingName, setSortingName] = useState("");
   const [sortingItem] = useState([
     "sort by",
@@ -76,17 +76,22 @@ const MainSectionHeader = () => {
     setOpen(!isOpen);
   };
   const onFilterChange = (item, key) => {
-    const filtered = filterList.filter((genreFilter, key) => genreFilter  == item);
+    const FoundedMovie = state.items.map((founded) => founded);
+
+    const finallyFounded = FoundedMovie.find((movieItem) =>
+      movieItem.genres.find((elem) => elem == item)
+    );
     dispatch({
       type: "SET_FILTER",
-      payload: filtered,
+      payload: finallyFounded,
     });
   };
   const onSortingChange = (sorting) => {
     if (sorting == "release date") {
       const sortedReleaseDate = state.items.sort((a, b) =>
-        a.title < b.title ? -1 : null
+        b.release_date.date - a.release_date.date
       );
+      console.log(sortedReleaseDate)
       dispatch({
         type: "SET_SORTING",
         payload: sortedReleaseDate,
@@ -101,10 +106,10 @@ const MainSectionHeader = () => {
     <>
       <StyledResult>
         <StyledFilter>
-          {filterList.map((item, key) => (
+          {filteredGenres.map((item, key) => (
             <StyledFilterList
               key={key}
-              onClick={() => onFilterChange(item,key)}
+              onClick={() => onFilterChange(item, key)}
             >
               {item}
             </StyledFilterList>

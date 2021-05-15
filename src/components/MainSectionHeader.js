@@ -62,7 +62,9 @@ const MainSectionHeader = () => {
   const newGenre = genres.reduce((acc, cur) => {
     return acc.concat(cur);
   }, []);
-  const filteredGenres = newGenre.filter((v, i) => newGenre.indexOf(v) === i);
+  const filteredGenres = newGenre.filter(
+    (item, index) => newGenre.indexOf(item) === index
+  );
 
   const [sortingName, setSortingName] = useState("");
   const [sortingItem] = useState([
@@ -76,28 +78,25 @@ const MainSectionHeader = () => {
     setOpen(!isOpen);
   };
   const onFilterChange = (item, key) => {
-    const FoundedMovie = state.items.map((founded) => founded);
-
-    const finallyFounded = FoundedMovie.find((movieItem) =>
-      movieItem.genres.find((elem) => elem == item)
-    );
+    const foundedMovie = state.items.filter((movie) => {
+      return movie.genres.includes(item);
+    });
     dispatch({
       type: "SET_FILTER",
-      payload: finallyFounded,
+      payload: foundedMovie,
     });
   };
   const onSortingChange = (sorting) => {
     if (sorting == "release date") {
-      const sortedReleaseDate = state.items.sort((a, b) =>
-        b.release_date.date - a.release_date.date
-      );
-      console.log(sortedReleaseDate)
+      const sortedReleaseDate = state.items.sort(function (a, b) {
+        const dateA = new Date(a.release_date),
+          dateB = new Date(b.release_date);
+        return dateA - dateB;
+      });
       dispatch({
         type: "SET_SORTING",
         payload: sortedReleaseDate,
       });
-    } else {
-      console.log("nothin");
     }
     setSortingName(sorting);
   };

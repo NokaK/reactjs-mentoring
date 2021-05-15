@@ -4,11 +4,6 @@ import Styled from "styled-components";
 import GlobalPopUp from "./GlobalPopUp";
 import DropDown from "./DropDown";
 
-const StyledFilterItem = Styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
 const StyledImage = Styled.img`
 width: 100%;
 `;

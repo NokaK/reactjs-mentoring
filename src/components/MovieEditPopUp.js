@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -66,24 +66,62 @@ margin: 10px 0;
 const MovieEditPopUp = (props) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-
+  const [updateMovie, setUpdateMovie] = useState({
+    title: null,
+    date: null,
+    overview: null,
+    runtime: null,
+  });
   const handleTitleChange = (e, id) => {
-    // const items = props.items.slice();
-    // const itemElement = items.find((el) => id === el.id);
-    // itemElement.title = e.target.value;
-    // const itemIndex = items.indexOf(itemElement);
-    // items[itemIndex] = itemElement;
-
-    // dispatch({
-    //   type: "EDIT_MOVIE",
-    //   payload: items,
-    // });
+    const items = state.items.slice();
+    const itemElement = items.find((el) => id === el.id);
+    itemElement.title = e.target.value;
+    const itemIndex = items.indexOf(itemElement);
+    items[itemIndex] = itemElement;
+    setUpdateMovie({ title: items });
   };
-  console.log(props.items);
+  const handleDateChange = (e, id) => {
+    const items = state.items.slice();
+    const itemElement = items.find((el) => id === el.id);
+    itemElement.release_date = e.target.value;
+    const itemIndex = items.indexOf(itemElement);
+    items[itemIndex] = itemElement;
+    setUpdateMovie({ date: items });
+  };
+  const handleOverviewChange = (e, id) => {
+    const items = state.items.slice();
+    const itemElement = items.find((el) => id === el.id);
+    itemElement.overview = e.target.value;
+    const itemIndex = items.indexOf(itemElement);
+    items[itemIndex] = itemElement;
+    setUpdateMovie({ overview: items });
+  };
+  const handleRuntimeChange = (e, id) => {
+    const items = state.items.slice();
+    const itemElement = items.find((el) => id === el.id);
+    itemElement.runtime = e.target.value;
+    const itemIndex = items.indexOf(itemElement);
+    items[itemIndex] = itemElement;
+    setUpdateMovie({ runtime: items });
+  };
+  
+  
+  const submiUpdatedMovie = (e) => {
+ 
+    e.stopPropagation()
+    e.preventDefault()
+    console.log('zdczd')
+    dispatch({
+      type: "EDIT_MOVIE",
+      payload: updateMovie,
+    });
+    props.handleClosePopup();
+  };
+
   return (
     <>
       <h1>EDIT MOVIE</h1>
-      <form onSubmit={props.updateMovieInfo}>
+      <form onSubmit={submiUpdatedMovie}>
         <StyledInputBlock>
           <Styledlabel>MOVIE ID</Styledlabel>
           <StyledId value={props.movieInfo.id} />
@@ -93,7 +131,7 @@ const MovieEditPopUp = (props) => {
           <StyledInput
             type="text"
             name="title"
-            onChange={(e) => handleTitleChange (e, props.movieInfo.id)}
+            onChange={(e) => handleTitleChange(e, props.movieInfo.id)}
             value={props.movieInfo.title}
           />
         </StyledInputBlock>
@@ -102,7 +140,8 @@ const MovieEditPopUp = (props) => {
           <StyledInput
             type="text"
             name="date"
-            placeholder={props.movieInfo.release_date}
+            onChange={(e) => handleDateChange(e, props.movieInfo.id)}
+            value={props.movieInfo.release_date}
           />
         </StyledInputBlock>
         {/* <StyledInputBlock>
@@ -121,7 +160,8 @@ const MovieEditPopUp = (props) => {
           <Styledlabel>OVERVIEW</Styledlabel>
           <StyledInput
             type="text"
-            placeholder={props.movieInfo.overview}
+            value={props.movieInfo.overview}
+            onChange={(e) => handleOverviewChange(e, props.movieInfo.id)}
             name="overview"
           />
         </StyledInputBlock>
@@ -129,7 +169,8 @@ const MovieEditPopUp = (props) => {
           <Styledlabel>RUNTIME</Styledlabel>
           <StyledInput
             type="text"
-            placeholder={props.movieInfo.runtime}
+            value={props.movieInfo.runtime}
+            onChange={(e) => handleRuntimeChange(e, props.movieInfo.id)}
             name="runtime"
           />
         </StyledInputBlock>

@@ -73,20 +73,20 @@ const MainSectionResult = (props) => {
 
   const onMouseEnter = useCallback(
     (index) => {
-      if (props.item.id == index) {
+      if (props.item.id === index) {
         setMove(true);
       }
     },
-    [setMove]
+    [setMove,props.item.id]
   );
 
   const onMouseLeave = useCallback(
     (index) => {
-      if (props.item.id == index) {
+      if (props.item.id === index) {
         setMove(false);
       }
     },
-    [setMove]
+    [setMove,props.item.id]
   );
 
   const handleMovieDetails = useCallback(
@@ -176,23 +176,6 @@ const MainSectionResult = (props) => {
 
   return (
     <>
-      {/* <div>
-        <input
-          type="text"
-          onChange={handleChange}
-          value={inputVal}
-          placeholder={inputVal}
-        />
-        <button onClick={handleCreate}>add</button>
-      </div> */}
-      {/* <StyledFilterItem
-
-      onClick={(e) => {
-        handleMovieDetails(e);
-      }}
-      >
-        
-      </StyledFilterItem> */}
       {renderPosts()}
     </>
   );

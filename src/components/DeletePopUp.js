@@ -1,6 +1,6 @@
 import React from "react";
 import Styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 
 const StyledInputBlock = Styled.div`
 display: flex;

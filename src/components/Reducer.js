@@ -26,17 +26,13 @@ const postsReducer = (state = initState, action) => {
     case "ADD_MOVIE":
       return {
         ...state,
-        items: [
-          ...state.items,
-           action.payload
-         
-        ],
+        items: [...state.items, action.payload],
         loading: false,
       };
     case "DELETE_MOVIE":
       return {
         ...state,
-        items: state.items.filter((item) => item.id !== action.payload)
+        items: state.items.filter((item) => item.id !== action.payload),
       };
     case "EDIT_MOVIE":
       return {

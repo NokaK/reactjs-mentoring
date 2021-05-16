@@ -82,7 +82,7 @@ const MainSectionHeader = () => {
     });
   };
   const onSortingChange = (sorting) => {
-    if (sorting == "release date") {
+    if (sorting === "release date") {
       const sortedReleaseDate = state.items.sort(function (a, b) {
         const dateA = new Date(a.release_date),
           dateB = new Date(b.release_date);
@@ -92,7 +92,7 @@ const MainSectionHeader = () => {
         type: "SET_SORTING",
         payload: sortedReleaseDate,
       });
-    } else if (sorting == "raiting") {
+    } else if (sorting === "raiting") {
       const sortedRating = state.items.sort(function (a, b) {
         return b.vote_average - a.vote_average;
       });

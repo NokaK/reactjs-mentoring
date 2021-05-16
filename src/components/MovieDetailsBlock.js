@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import Styled from "styled-components";
 import {useSelector } from "react-redux";
-import { InfoContext } from "../context/MovieInfoContext";
 import { ChosenMovieContext } from "../context/MovieIdContext";
 
 const StyledBlock = Styled.div`

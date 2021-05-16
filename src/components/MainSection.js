@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, {useEffect } from "react";
 import Styled from "styled-components";
 import MainSectionHeader from "./MainSectionHeader";
 import MainSectionResult from "./MainSectionResult";
 import ErrorBoundary from "./ErrorBoundary";
-import { InfoContext } from "../context/MovieInfoContext";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPost } from "./Action";
 // import WithLoading from "./WithLoading";
@@ -30,7 +29,7 @@ const MainSection = () => {
   const state = useSelector((state) => state);
   useEffect(() => {
     dispatch(fetchPost());
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <StyledBody>

@@ -1,13 +1,15 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext, useState, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import Styled from "styled-components";
 import GlobalPopUp from "./GlobalPopUp";
 import DropDown from "./DropDown";
-
+import {ChosenMovieContext} from '../context/MovieIdContext'
+import {MovieContext} from '../context/MovieDetailsContext'
 const StyledImage = Styled.img`
 width: 100%;
 `;
 const StyledInfoWrapper = Styled.div`
+
 color: #fff;
 display: flex; 
 justify-content: space-between;
@@ -63,8 +65,8 @@ position: relative;
 const MainSectionResult = (props) => {
   const dispatch = useDispatch();
   const [inputVal, setInputVal] = useState("");
-  // const [details, SetDetails] = useContext(MovieContext);
-  // const [choosenMovie, setChoosenMovie] = useContext(ChosenMovieContext);
+  const [details, SetDetails] = useContext(MovieContext);
+  const [choosenMovie, setChoosenMovie] = useContext(ChosenMovieContext);
   const [move, setMove] = useState(false);
   const [dropDown, setDropDown] = useState(false);
   const [editModal, setEditModal] = useState(false);
@@ -103,14 +105,14 @@ const MainSectionResult = (props) => {
     [setMove]
   );
 
-  // const handleMovieDetails = useCallback(
-  //   (e, key) => {
-  //     e.preventDefault();
-  //     SetDetails(true);
-  //     setChoosenMovie(key);
-  //   },
-  //   [SetDetails, setChoosenMovie]
-  // );
+  const handleMovieDetails = useCallback(
+    (e, key) => {
+      e.preventDefault();
+      SetDetails(true);
+      setChoosenMovie(key);
+    },
+    [setChoosenMovie,SetDetails]
+  );
 
   const handleOpenModal = (e) => {
     e.preventDefault();
@@ -147,6 +149,7 @@ const MainSectionResult = (props) => {
           key={props.id}
           onMouseEnter={() => onMouseEnter(props.item.id)}
           onMouseLeave={() => onMouseLeave(props.item.id)}
+          onClick ={(e) => handleMovieDetails(e,props.item.id)}
         >
           {move ? (
             <StyledDots onClick={handleOpenModal}>

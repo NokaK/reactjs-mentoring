@@ -67,12 +67,7 @@ const MainSectionHeader = () => {
   );
 
   const [sortingName, setSortingName] = useState("");
-  const [sortingItem] = useState([
-    "sort by",
-    "release date",
-    "raiting",
-    "genre",
-  ]);
+  const [sortingItem] = useState(["sort by", "release date", "raiting"]);
   const [isOpen, setOpen] = useState(false);
   const toggleDropdown = () => {
     setOpen(!isOpen);
@@ -96,6 +91,14 @@ const MainSectionHeader = () => {
       dispatch({
         type: "SET_SORTING",
         payload: sortedReleaseDate,
+      });
+    } else if (sorting == "raiting") {
+      const sortedRating = state.items.sort(function (a, b) {
+        return b.vote_average - a.vote_average;
+      });
+      dispatch({
+        type: "SET_RATING",
+        payload: sortedRating,
       });
     }
     setSortingName(sorting);

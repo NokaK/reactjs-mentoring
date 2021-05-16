@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import Styled from "styled-components";
+import {useSelector } from "react-redux";
 import { InfoContext } from "../context/MovieInfoContext";
 import { ChosenMovieContext } from "../context/MovieIdContext";
 
@@ -42,14 +43,15 @@ display: flex;
 justify-content: space-between;
 `;
 const MovieDetailsBlock = () => {
-  const [movies] = useContext(InfoContext);
+  const state = useSelector((state) => state);
   const [choosenMovie] = useContext(ChosenMovieContext);
+
   return (
     <>
-      {movies.map((item, key) =>
-        key === choosenMovie ? (
+      {state.items.map((item, key) =>
+        item.id === choosenMovie ? (
           <StyledBlock key={item.id}>
-            <StyledImage srcs={item.poster_path} alt={item.title} />
+            <StyledImage src={item.poster_path} alt={item.title} />
             <StyledInfoWrapper>
               <StyledTitleBlock>
                 <StyledTitle>{item.title}</StyledTitle>

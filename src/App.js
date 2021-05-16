@@ -32,7 +32,7 @@ function App() {
         <MovieInfoProvider>
           <MovieProvider>
             <ChosenMovieProvider>
-              {/* <FirstSectionView /> */}
+              <FirstSectionView />
               <MainSection />
             </ChosenMovieProvider>
           </MovieProvider>

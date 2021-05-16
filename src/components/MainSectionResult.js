@@ -1,5 +1,4 @@
 import React, { useContext, useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
 import Styled from "styled-components";
 import GlobalPopUp from "./GlobalPopUp";
 import DropDown from "./DropDown";
@@ -63,8 +62,7 @@ position: relative;
 }
 `;
 const MainSectionResult = (props) => {
-  const dispatch = useDispatch();
-  const [inputVal, setInputVal] = useState("");
+
   const [details, SetDetails] = useContext(MovieContext);
   const [choosenMovie, setChoosenMovie] = useContext(ChosenMovieContext);
   const [move, setMove] = useState(false);
@@ -72,20 +70,6 @@ const MainSectionResult = (props) => {
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    setInputVal(e.target.value);
-  };
-
-  const handleCreate = (e) => {
-    e.preventDefault(e);
-    dispatch({
-      type: "ADD_MOVIE",
-      payload: inputVal,
-    });
-    setInputVal("");
-  };
- 
 
   const onMouseEnter = useCallback(
     (index) => {

@@ -55,8 +55,7 @@ const FirstSection = () => {
     e.preventDefault();
     setMoveModal(true);
   };
-  const handleClosePopup = (e) => {
-    e.preventDefault();
+  const handleClosePopup = () => {
     setMoveModal(false);
   };
 

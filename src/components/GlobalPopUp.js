@@ -55,7 +55,7 @@ const GlobalPopUp = (props) => {
               movieInfo={props.movieInfo}
             />
           ) : null}
-          {props.moveModal ? <MoviePopUp /> : null}
+          {props.moveModal ? <MoviePopUp handleClosePopup={props.handleClosePopup}/> : null}
           <StyledPopUpCloseButton onClick={props.handleClosePopup} />
         </StyledPopupContent>
       </StyledPopup>

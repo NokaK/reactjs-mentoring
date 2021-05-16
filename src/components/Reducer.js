@@ -27,8 +27,9 @@ const postsReducer = (state = initState, action) => {
       return {
         ...state,
         items: [
-          { title: action.payload, id: state.items.length + 1 },
           ...state.items,
+           action.payload
+         
         ],
         loading: false,
       };

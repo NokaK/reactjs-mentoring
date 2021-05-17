@@ -51,8 +51,8 @@ const GlobalPopUp = (props) => {
             <MovieEditPopUp movieInfo={props.movieInfo}  handleClosePopup={props.handleClosePopup}/>
           ) : null}
           {props.deleteModal ? (
-            <DeletePopUp
-              movieInfo={props.movieInfo}
+            <DeletePopUp 
+              movieInfo={props.movieInfo} handleClosePopup={props.handleClosePopup}
             />
           ) : null}
           {props.moveModal ? <MoviePopUp handleClosePopup={props.handleClosePopup}/> : null}

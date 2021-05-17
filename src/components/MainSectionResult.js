@@ -119,7 +119,6 @@ const MainSectionResult = (props) => {
   };
 
   const handleClosePopup = (e) => {
-    e.preventDefault();
     setEditModal(false);
     setDeleteModal(false);
   };

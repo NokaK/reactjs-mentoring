@@ -47,7 +47,7 @@ const MovieDetailsBlock = () => {
 
   return (
     <>
-      {state.items.map((item, key) =>
+      {state.items && state.items.map((item, key) =>
         item.id === choosenMovie ? (
           <StyledBlock key={item.id}>
             <StyledImage src={item.poster_path} alt={item.title} />

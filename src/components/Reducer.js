@@ -35,9 +35,14 @@ const postsReducer = (state = initState, action) => {
         items: state.items.filter((item) => item.id !== action.payload),
       };
     case "EDIT_MOVIE":
+      const movies = [...state.items];
+      const movieIndex = movies.findIndex((el) => el.id === action.payload.id);
+      let movie = movies.find((el) => action.payload.id === el.id);
+      movie = { ...movie, ...action.payload };
+      movies[movieIndex] = movie;
       return {
         ...state,
-        items: action.payload,
+        items: movies,
       };
     case "SET_FILTER":
       return {

@@ -24,7 +24,6 @@ flex-wrap: wrap;
 `;
 
 const MainSection = () => {
-  // const [movies] = useContext(InfoContext);
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   useEffect(() => {
@@ -37,7 +36,7 @@ const MainSection = () => {
         <ErrorBoundary>
           <StyledFilterResult>39 movies found</StyledFilterResult>
           <StyledFilterItems>
-            {state.items.map((item, index) => (
+            {state.items && state.items.map((item, index) => (
               <MainSectionResult item={item} key={index} />
             ))}
           </StyledFilterItems>

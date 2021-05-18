@@ -66,47 +66,32 @@ margin: 10px 0;
 const MovieEditPopUp = (props) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  const [updateMovieTitle, setUpdateMovieTitle] = useState('');
-  const [updateDate, setUpdateDate] = useState('');
   const [editMovie, setEditMovie] = useState({
-    id: '',
-    title: '',
-    release_date: '',
-    runtime: '',
-    overview: ''
-  })
+    id: "",
+    title: "",
+    release_date: "",
+    runtime: "",
+    overview: "",
+  });
   useEffect(() => {
-    
-    const movie = state.items.find( movie => props.movieInfo.id  === movie.id)
-  
-    
+    const movie = state.items.find((movie) => props.movieInfo.id === movie.id);
+
     setEditMovie({
       id: movie.id,
       title: movie.title,
-      release_date:  movie.release_date,
+      release_date: movie.release_date,
       runtime: movie.runtime,
-      overview: movie.overview
-    })
-    
-   
-    // setEditMovie(props.movieInfo.id)
-  },[state,  props.movieInfo.id])
-  console.log(editMovie)
+      overview: movie.overview,
+    });
+  }, [state, props.movieInfo.id]);
+  console.log(editMovie);
   const handleTitleChange = (e, formControl) => {
-    const movie = {...editMovie}
-    movie[formControl] = e.target.value
-
-    setEditMovie(movie)
-    // const items = state.items.slice();
-    // const itemElement = items.find((el) => id === el.id);
-    // itemElement.title = e.target.value;
-    // const itemIndex = items.indexOf(itemElement);
-    // items[itemIndex] = itemElement;
-    // setUpdateMovieTitle(items);
+    const movie = { ...editMovie };
+    movie[formControl] = e.target.value;
+    setEditMovie(movie);
   };
- 
+
   const submiUpdatedMovie = (e) => {
-    
     dispatch({
       type: "EDIT_MOVIE",
       payload: editMovie,
@@ -126,7 +111,7 @@ const MovieEditPopUp = (props) => {
           <StyledInput
             type="text"
             name="title"
-            onChange={(e) => handleTitleChange(e, 'title')}
+            onChange={(e) => handleTitleChange(e, "title")}
             value={editMovie.title}
           />
         </StyledInputBlock>
@@ -135,7 +120,7 @@ const MovieEditPopUp = (props) => {
           <StyledInput
             type="text"
             name="date"
-            onChange={(e) => handleTitleChange(e, 'release_date')}
+            onChange={(e) => handleTitleChange(e, "release_date")}
             value={editMovie.release_date}
           />
         </StyledInputBlock>
@@ -156,7 +141,7 @@ const MovieEditPopUp = (props) => {
           <StyledInput
             type="text"
             value={editMovie.overview}
-            onChange={(e) => handleTitleChange(e, 'overview')}
+            onChange={(e) => handleTitleChange(e, "overview")}
             name="overview"
           />
         </StyledInputBlock>
@@ -165,13 +150,17 @@ const MovieEditPopUp = (props) => {
           <StyledInput
             type="text"
             value={editMovie.runtime}
-            onChange={(e) => handleTitleChange(e, 'runtime')}
+            onChange={(e) => handleTitleChange(e, "runtime")}
             name="runtime"
           />
         </StyledInputBlock>
         <StyledButtonBlock>
           <StyledReset type="reset" value="RESET" />
-          <StyledSubmit type="submit" value="SUBMIT"  onClick={submiUpdatedMovie}/>
+          <StyledSubmit
+            type="submit"
+            value="SUBMIT"
+            onClick={submiUpdatedMovie}
+          />
         </StyledButtonBlock>
       </form>
     </>

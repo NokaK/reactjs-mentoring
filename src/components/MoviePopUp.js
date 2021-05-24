@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Formik, Form } from "formik";
+import { TextField } from "./TextField";
 import Styled from "styled-components";
+import CustomSelect from "./CustomSelect";
+import * as Yup from "yup";
 
 const StyledInputBlock = Styled.div`
 display: flex;
@@ -8,28 +12,6 @@ flex-direction: column;
 margin: 15px 0 0;
 `;
 
-const Styledlabel = Styled.label`
-color: #f65261;
-font-size: 18px;
-margin: 0 0 10px;
-`;
-
-const StyledInput = Styled.input`
-border-radius: 6px;
-background-color: #424242;
-border: none;
-font-size: 16px;
-padding: 10px;
-color: #fff;
-`;
-const StyledSelect = Styled.select`
-border-radius: 6px;
-background-color: #424242;
-border: none;
-font-size: 16px;
-padding: 10px;
-color: #fff;
-`;
 const StyledButtonBlock = Styled.div`
 display: flex;
 margin: 30px 0 0;
@@ -58,119 +40,78 @@ cursor: pointer;
 `;
 
 const MoviePopUp = (props) => {
+  const validate = Yup.object({
+    title: Yup.string().required("Required"),
+    date: Yup.string().required("Required"),
+    url: Yup.string().required("Required"),
+    overview: Yup.string().required("Required"),
+    runtime: Yup.string().required("Required"),
+    genre: Yup.string().required("Required"),
+  });
+
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
-  const [url, setUrl] = useState("");
-  const [genres, setGenres] = useState([]);
-  const [overview, setOverview] = useState("");
-  const [runtime, setRuntime] = useState("");
+  const [genres] = useState([]);
 
-  const addTitle = (e) => {
-    e.preventDefault();
-    setTitle(e.target.value);
-  };
+  const options = [
+    { value: "Action", label: "Action" },
+    { value: "Adventure", label: "Adventure" },
+  ];
 
-  const addDate = (e) => {
-    e.preventDefault();
-    setDate(e.target.value);
-  };
-
-  const addURL = (e) => {
-    e.preventDefault();
-    setUrl(e.target.value);
-  };
-
-  const addGenre = (e) => {
-    setGenres([e.target.value]);
-  };
-
-  const addOverview = (e) => {
-    e.preventDefault();
-    setOverview(e.target.value);
-  };
-
-  const addRuntime = (e) => {
-    e.preventDefault();
-    setRuntime(e.target.value);
-  };
-
-  const submitMovie = (e) => {
-    e.preventDefault(e);
-    const newMovie = {
-      title,
-      date,
-      url,
-      genres,
-      overview,
-      runtime,
-      id: state.items.length + 1,
-    };
-    dispatch({
-      type: "ADD_MOVIE",
-      payload: newMovie,
-    });
-    setTitle("");
-    setDate("");
-    setUrl("");
-    setGenres([]);
-    setOverview("");
-    setRuntime("");
-    props.handleClosePopup()
-  };
   return (
     <>
-      <h1>addmovie</h1>
-      <form onSubmit={submitMovie}>
-        <StyledInputBlock>
-          <Styledlabel>TITLE</Styledlabel>
-          <StyledInput type="text" name="title" onChange={addTitle} />
-        </StyledInputBlock>
-        <StyledInputBlock>
-          <Styledlabel>RELEASE DATE</Styledlabel>
-          <StyledInput type="date" name="date" onChange={addDate} />
-        </StyledInputBlock>
-        <StyledInputBlock>
-          <Styledlabel>MOVIE URL</Styledlabel>
-          <StyledInput
-            type="text"
-            placeholder="MOVIE URL gere"
-            name="url"
-            onChange={addURL}
-          />
-        </StyledInputBlock>
-        <StyledInputBlock>
-          <Styledlabel>GENRE</Styledlabel>
-          <StyledSelect onChange={(e) => addGenre(e)}>
-            <option>Select genre</option>
-            <option value="Action">Action</option>
-            <option value="Adventure">Adventure</option>
-          </StyledSelect>
-        </StyledInputBlock>
-        <StyledInputBlock>
-          <Styledlabel>OVERVIEW</Styledlabel>
-          <StyledInput
-            type="text"
-            placeholder="OVERVIEW here"
-            name="overview"
-            onChange={addOverview}
-          />
-        </StyledInputBlock>
-        <StyledInputBlock>
-          <Styledlabel>RUNTIME</Styledlabel>
-          <StyledInput
-            type="text"
-            placeholder="RUNTIME here"
-            name="runtime"
-            onChange={addRuntime}
-          />
-        </StyledInputBlock>
-        <StyledButtonBlock>
-          <StyledReset type="reset" value="RESET" />
-          <StyledSubmit type="submit" value="SUBMIT" />
-        </StyledButtonBlock>
-      </form>
+      <h1>Anywhere in your app!</h1>
+      <Formik
+        initialValues={{
+          title: "",
+          date: "",
+          url: "",
+          overview: "",
+          runtime: "",
+        }}
+        validationSchema={validate}
+        onSubmit={(values) => {
+          console.log(values);
+          const errors = {};
+          if (!values.genre) {
+            errors.genre = "Required";
+          }
+          const newMovie = {
+            values,
+            genres,
+            id: state.items.length + 1,
+          };
+          dispatch({
+            type: "ADD_MOVIE",
+            payload: newMovie,
+          });
+          props.handleClosePopup();
+        }}
+      >
+        {(formik) => (
+          <Form>
+            <TextField label="title" name="title" type="text" />
+            <TextField label="date" name="date" type="text" />
+            <TextField label="URL" name="url" type="text" />
+            <StyledInputBlock>
+              <CustomSelect
+                onChange={(value) => formik.setFieldValue("genre", value.value)}
+                value={formik.values.genre}
+                options={options}
+              />
+              {formik.errors.genre ? (
+                <div className="error">{formik.errors.genre}</div>
+              ) : null}
+            </StyledInputBlock>
+            <TextField label="overview" name="overview" type="text" />
+            <TextField label="runtime" name="runtime" type="text" />
+            <StyledButtonBlock>
+              <StyledReset type="reset" value="reset" />
+              <StyledSubmit type="submit" value="Submit" />
+            </StyledButtonBlock>
+          </Form>
+        )}
+      </Formik>
     </>
   );
 };

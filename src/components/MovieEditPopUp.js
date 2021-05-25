@@ -104,19 +104,18 @@ const MovieEditPopUp = (props) => {
   //   setEditMovie(movie);
   // };
 
-  const submiUpdatedMovie = (e) => {
+  const submitUpdatedMovie = (e) => {
     e.preventDefault();
     console.log("clicked");
-    // dispatch({
-    //   type: "EDIT_MOVIE",
-    //   payload: editMovie,
-    // });
-    // props.handleClosePopup();
   };
 
   return (
     <>
-      <h1>EDIT MOVIE</h1>
+    <form onSubmit={submitUpdatedMovie}>
+      <input  type="text"/>
+      <input  type="submit"  value="submit"/>
+    </form>
+      {/* <h1>EDIT MOVIE</h1>
 
       <Formik
         initialValues={{
@@ -137,7 +136,7 @@ const MovieEditPopUp = (props) => {
         }}
       >
         {(formik) => (
-          <Form onSubmit={submiUpdatedMovie}>
+          <Form onSubmit={submitUpdatedMovie}>
             <StyledInputBlock>
               <Styledlabel>MOVIE ID</Styledlabel>
               {props.movieInfo.id}
@@ -146,7 +145,7 @@ const MovieEditPopUp = (props) => {
             <TextField label="date" name="date" type="text" />
             <TextField label="url" name="url" type="text" />
             <TextField label="overview" name="overview" type="text" />
-            <TextField label="runtime" name="runtime" type="text" />
+            <TextField label="runtime" name="runtime" type="text" /> */}
             {/* <StyledInputBlock>
               <Styledlabel>TITLE</Styledlabel>
               <StyledInput
@@ -195,13 +194,13 @@ const MovieEditPopUp = (props) => {
                 name="runtime"
               />
             </StyledInputBlock> */}
-            <StyledButtonBlock>
+            {/* <StyledButtonBlock>
               <StyledReset type="reset" value="Reset" />
               <StyledSubmit type="submit" value="Submit" />
             </StyledButtonBlock>
           </Form>
         )}
-      </Formik>
+      </Formik> */}
      
     </>
   );

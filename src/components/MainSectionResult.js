@@ -2,8 +2,8 @@ import React, { useContext, useState, useCallback } from "react";
 import Styled from "styled-components";
 import GlobalPopUp from "./GlobalPopUp";
 import DropDown from "./DropDown";
-import {ChosenMovieContext} from '../context/MovieIdContext'
-import {MovieContext} from '../context/MovieDetailsContext'
+import { ChosenMovieContext } from "../context/MovieIdContext";
+import { MovieContext } from "../context/MovieDetailsContext";
 const StyledImage = Styled.img`
 width: 100%;
 `;
@@ -62,7 +62,6 @@ position: relative;
 }
 `;
 const MainSectionResult = (props) => {
-
   const [details, SetDetails] = useContext(MovieContext);
   const [choosenMovie, setChoosenMovie] = useContext(ChosenMovieContext);
   const [move, setMove] = useState(false);
@@ -70,14 +69,13 @@ const MainSectionResult = (props) => {
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
-
   const onMouseEnter = useCallback(
     (index) => {
       if (props.item.id === index) {
         setMove(true);
       }
     },
-    [setMove,props.item.id]
+    [setMove, props.item.id]
   );
 
   const onMouseLeave = useCallback(
@@ -86,16 +84,15 @@ const MainSectionResult = (props) => {
         setMove(false);
       }
     },
-    [setMove,props.item.id]
+    [setMove, props.item.id]
   );
 
   const handleMovieDetails = useCallback(
     (e, key) => {
-      e.preventDefault();
       SetDetails(true);
       setChoosenMovie(key);
     },
-    [setChoosenMovie,SetDetails]
+    [setChoosenMovie, SetDetails]
   );
 
   const handleOpenModal = (e) => {
@@ -132,7 +129,7 @@ const MainSectionResult = (props) => {
           key={props.id}
           onMouseEnter={() => onMouseEnter(props.item.id)}
           onMouseLeave={() => onMouseLeave(props.item.id)}
-          onClick ={(e) => handleMovieDetails(e,props.item.id)}
+          onClick={(e) => handleMovieDetails(e, props.item.id)}
         >
           {move ? (
             <StyledDots onClick={handleOpenModal}>
@@ -173,10 +170,6 @@ const MainSectionResult = (props) => {
     );
   };
 
-  return (
-    <>
-      {renderPosts()}
-    </>
-  );
+  return <>{renderPosts()}</>;
 };
 export default MainSectionResult;

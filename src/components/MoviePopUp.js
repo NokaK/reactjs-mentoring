@@ -71,7 +71,6 @@ const MoviePopUp = (props) => {
         }}
         validationSchema={validate}
         onSubmit={(values) => {
-          console.log(values);
           const errors = {};
           if (!values.genre) {
             errors.genre = "Required";

@@ -34,7 +34,7 @@ const MainSection = () => {
       <StyledBody>
         <MainSectionHeader />
         <ErrorBoundary>
-          <StyledFilterResult>39 movies found</StyledFilterResult>
+          <StyledFilterResult>{state.items.length} movies found</StyledFilterResult>
           <StyledFilterItems>
             {state.items && state.items.map((item, index) => (
               <MainSectionResult item={item} key={index} />

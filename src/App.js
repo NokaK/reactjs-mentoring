@@ -2,15 +2,15 @@ import React from "react";
 import { MovieProvider } from "./context/MovieDetailsContext";
 import { MovieInfoProvider } from "./context/MovieInfoContext";
 import { ChosenMovieProvider } from "./context/MovieIdContext";
-import FirstSectionView from "./components/FirstSectionView";
-import MainSection from "./components/MainSection";
-import Footer from "./components/Footer";
+
+
 import "./index.css";
 import { applyMiddleware, createStore, compose } from "redux";
 import thunk from "redux-thunk";
 import postsReducer from "./components/Reducer";
 import { Provider } from "react-redux";
 // import composeWithDevTools from "redux-devtools-extension";
+import MainRoute from "./router/MainRoute";
 
 const middleware = [thunk];
 const composeEnhancers =
@@ -29,15 +29,12 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <MovieInfoProvider>
           <MovieProvider>
             <ChosenMovieProvider>
-              <FirstSectionView />
-              <MainSection />
+              <MainRoute />
             </ChosenMovieProvider>
           </MovieProvider>
-        </MovieInfoProvider>
-        <Footer />
+        
       </div>
     </Provider>
   );

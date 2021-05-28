@@ -1,12 +1,10 @@
-import React, { useContext } from "react";
-import { MovieContext } from "../context/MovieDetailsContext";
+import React from "react";
 import FirstSection from "./FirstSection";
 import MovieDietails from "./MovieDietails";
 
-function FirstSectionView() {
-  const [details] = useContext(MovieContext);
 
-  return <div>{!details ? <FirstSection /> : <MovieDietails />}</div>;
+function FirstSectionView({movie}) {
+  return <div>{!movie ? <FirstSection /> : <MovieDietails />}</div>;
 }
 
 export default FirstSectionView;

@@ -3,7 +3,6 @@ import Styled from "styled-components";
 import MovieDetailsHeader from "./MovieDetailsHeader";
 import MovieDetailsBlock from "./MovieDetailsBlock";
 import bg from "../image/background.jpg";
-
 const StyledBackground = Styled.div`
   position: relative;
   height: 70vh;
@@ -34,4 +33,4 @@ const MovieDietails = () => {
     </StyledBackground>
   );
 };
-export default MovieDietails;
+export default MovieDietails

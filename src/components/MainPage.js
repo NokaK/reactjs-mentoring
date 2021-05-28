@@ -1,12 +1,24 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import FirstSectionView from "./FirstSectionView";
 import MainSection from "./MainSection";
 import Footer from "./Footer";
-function MainPage() {
+import {useSelector } from "react-redux";
+
+
+function MainPage({match}) {
+  const [movie,setMovie] = useState(null)
+  const state = useSelector((state) => state);
+ 
+  useEffect(()=>{   
+    const foundedId =  state.items.find((el) => el.id == match.params.id)
+     if(foundedId) {
+      setMovie(foundedId)
+     } 
+  }, [match.params.id, state])
   return (
     <>
-      <FirstSectionView />
-      <MainSection />
+      <FirstSectionView movie={movie} />
+      <MainSection movie={movie} />
       <Footer />
     </>
   );

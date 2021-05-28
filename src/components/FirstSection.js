@@ -47,7 +47,6 @@ const StyledOpacityBlock = Styled.div`
   background-color: rgba(0,0,0,0.8);
 `;
 
-
 const FirstSection = () => {
   const [moveModal, setMoveModal] = useState(false);
 

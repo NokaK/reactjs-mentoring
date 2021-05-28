@@ -22,6 +22,7 @@ margin: 0 0 0 20px;
 `;
 const StyledImg = Styled.img`
 margin: 20px 0;
+height: 200px;
 `;
 const StyledTitle = Styled.h1`
 color: #fff;

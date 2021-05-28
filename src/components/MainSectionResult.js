@@ -4,6 +4,7 @@ import GlobalPopUp from "./GlobalPopUp";
 import DropDown from "./DropDown";
 import { ChosenMovieContext } from "../context/MovieIdContext";
 import { MovieContext } from "../context/MovieDetailsContext";
+import { useHistory,useParams,  } from 'react-router-dom';
 const StyledImage = Styled.img`
 width: 100%;
 `;
@@ -86,11 +87,15 @@ const MainSectionResult = (props) => {
     },
     [setMove, props.item.id]
   );
-
+  const history = useHistory()
   const handleMovieDetails = useCallback(
+   
     (e, key) => {
+    
       SetDetails(true);
       setChoosenMovie(key);
+      history.push(`/film/${key}`)
+    
     },
     [setChoosenMovie, SetDetails]
   );

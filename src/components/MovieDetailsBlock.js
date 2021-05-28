@@ -1,8 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Styled from "styled-components";
 import {useSelector } from "react-redux";
 import { ChosenMovieContext } from "../context/MovieIdContext";
-
+import { withRouter } from "react-router";
+import {
+  Switch,
+  Route,
+  useParams
+} from "react-router-dom";
 const StyledBlock = Styled.div`
 display: flex;
 align-items: center;
@@ -41,14 +46,12 @@ width: 200px;
 display: flex;
 justify-content: space-between;
 `;
-const MovieDetailsBlock = () => {
+const MovieDetailsBlock = (props) => {
   const state = useSelector((state) => state);
-  const [choosenMovie] = useContext(ChosenMovieContext);
-
   return (
     <>
       {state.items && state.items.map((item, key) =>
-        item.id === choosenMovie ? (
+        item.id == props.match.params.id ? (
           <StyledBlock key={item.id}>
             <StyledImage src={item.poster_path} alt={item.title} />
             <StyledInfoWrapper>
@@ -69,4 +72,4 @@ const MovieDetailsBlock = () => {
     </>
   );
 };
-export default MovieDetailsBlock;
+export default withRouter(MovieDetailsBlock);

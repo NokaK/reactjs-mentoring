@@ -1,13 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import Styled from "styled-components";
 import {useSelector } from "react-redux";
-import { ChosenMovieContext } from "../context/MovieIdContext";
 import { withRouter } from "react-router";
-import {
-  Switch,
-  Route,
-  useParams
-} from "react-router-dom";
+
 const StyledBlock = Styled.div`
 display: flex;
 align-items: center;
@@ -51,7 +46,7 @@ const MovieDetailsBlock = (props) => {
   return (
     <>
       {state.items && state.items.map((item, key) =>
-        item.id == props.match.params.id ? (
+        item.id === props.match.params.id ? (
           <StyledBlock key={item.id}>
             <StyledImage src={item.poster_path} alt={item.title} />
             <StyledInfoWrapper>

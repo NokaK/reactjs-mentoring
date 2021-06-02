@@ -9,6 +9,7 @@ function MainRoute() {
         <Switch>
           <Route path="/" exact   component={MainPage} />
           <Route path="/film/:id" component={MainPage} />
+          <Route path="/search" component={MainPage}/>
           <Route path="*"   component={My404Component} />
         </Switch>
       </BrowserRouter>

@@ -6,7 +6,7 @@ import ErrorBoundary from "./ErrorBoundary";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPost } from "./Action";
 import MovieNotFound from "./MovieNotFound";
-import { Switch, Route, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 // import WithLoading from "./WithLoading";
 

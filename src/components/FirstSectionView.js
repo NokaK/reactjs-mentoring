@@ -3,8 +3,8 @@ import FirstSection from "./FirstSection";
 import MovieDietails from "./MovieDietails";
 
 
-function FirstSectionView({movie}) {
-  return <div>{!movie ? <FirstSection /> : <MovieDietails />}</div>;
+function FirstSectionView(props) {
+  return <div>{!props.movie ? <FirstSection props={props} /> : <MovieDietails />}</div>;
 }
 
 export default FirstSectionView;

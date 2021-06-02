@@ -10,7 +10,7 @@ function MainPage({match}) {
   const state = useSelector((state) => state);
  
   useEffect(()=>{   
-    const foundedId =  state.items.find((el) => el.id == match.params.id)
+    const foundedId =  state.items.find((el) => el.id === match.params.id)
      if(foundedId) {
       setMovie(foundedId)
      } 

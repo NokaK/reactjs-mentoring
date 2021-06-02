@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Styled from "styled-components";
-
+import { useHistory } from "react-router-dom";
 const StyledTitle = Styled.h1`
   color: #fff;
   font-size: 40px;
   margin: 50px 0 20px 70px;
 `;
-const StyledInputWrapper = Styled.div`
+const StyledInputWrapper = Styled.form`
  margin: 0 70px;
  display: flex;
 `;
@@ -29,13 +29,28 @@ background-color: #f65261;
 border: none;
 border-radius: 5px;
 `;
-const FirstSectionSearch = () => {
+const FirstSectionSearch = (props) => {
+  const [input, setInput] = useState("");
+
+  const history = useHistory();
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    history.push("/search?" + input);
+    setInput("");
+  };
+  const handleSearchChange = (e) => {
+    setInput(e.target.value);
+  };
   return (
     <>
       <StyledTitle>FIND YOUR MOVIE</StyledTitle>
-      <StyledInputWrapper>
-        <StyledInput placeholder="What do you want to watch?" />
-        <StyledInputButton>SEARCH</StyledInputButton>
+      <StyledInputWrapper onSubmit={handleSearchSubmit}>
+        <StyledInput
+          placeholder="What do you want to watch?"
+          onChange={handleSearchChange}
+          value={input}
+        />
+        <StyledInputButton type="submit">SEARCH</StyledInputButton>
       </StyledInputWrapper>
     </>
   );
